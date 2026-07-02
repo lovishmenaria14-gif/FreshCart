@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+* {
+
+  scrollbar-width: none; /* Firefox me use kr skte hai*/
+  -ms-overflow-style: none;  /* IE/Edge purane versions */
+}
+
+::-webkit-scrollbar, 
+::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, ya Opera */
+}
