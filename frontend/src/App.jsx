@@ -26,7 +26,7 @@ import { io } from 'socket.io-client'
 import { setSocket } from './redux/userSlice'
 import About from "./pages/About";
 
-export const serverUrl="http://localhost:8000"
+export const serverUrl="https://freshcart-a885.onrender.com"
 function App() {
     const {userData}=useSelector(state=>state.user)
     const dispatch=useDispatch()
