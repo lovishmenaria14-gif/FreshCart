@@ -26,12 +26,17 @@ export const signUp=async (req,res) => {
         })
 
         const token=await genToken(user._id)
+        console.log("Generating token...");
+console.log(token);
+
       res.cookie("token", token, {
     httpOnly: true,
     secure: true,
     sameSite: "none",
     maxAge: 7 * 24 * 60 * 60 * 1000,
 });
+
+console.log("Cookie set");
   
         return res.status(201).json(user)
 
