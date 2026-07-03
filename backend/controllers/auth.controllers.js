@@ -45,33 +45,46 @@ console.log("Cookie set");
     }
 }
 
-export const signIn=async (req,res) => {
+export const signIn = async (req, res) => {
     try {
-        const {email,password}=req.body
-        const user=await User.findOne({email})
-        if(!user){
-            return res.status(400).json({message:"User does not exist."})
-        }
-        
-     const isMatch=await bcrypt.compare(password,user.password)
-     if(!isMatch){
-         return res.status(400).json({message:"incorrect Password"})
-     }
+        console.log("===== SIGNIN REQUEST =====");
 
-        const token=await genToken(user._id)
-        res.cookie("token",token,{
-            secure:false,
-            sameSite:"none",
-            maxAge:7*24*60*60*1000,
-            httpOnly:true
-        })
-  
-        return res.status(200).json(user)
+        const { email, password } = req.body;
+        console.log("Email:", email);
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            console.log("User not found");
+            return res.status(400).json({ message: "User does not exist." });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            console.log("Wrong password");
+            return res.status(400).json({ message: "Incorrect Password" });
+        }
+
+        const token = await genToken(user._id);
+        console.log("Token generated:", token);
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none",
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        });
+
+        console.log("Cookie sent");
+
+        return res.status(200).json(user);
 
     } catch (error) {
-        return res.status(500).json(`sign In error ${error}`)
+        console.log(error);
+        return res.status(500).json(error.message);
     }
-}
+};
 
 export const signOut = async (req, res) => {
   try {
