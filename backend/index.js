@@ -34,7 +34,7 @@ app.set("io",io)
 
 const port=process.env.PORT || 5000
 app.use(cors({
-    origin:"https://fresh-cart-steel-ten.vercel.app",
+    origin:"http://localhost:5173",
     credentials:true
 }))
 app.use(express.json())
