@@ -26,12 +26,12 @@ export const signUp=async (req,res) => {
         })
 
         const token=await genToken(user._id)
-        res.cookie("token",token,{
-            secure:false,
-            sameSite:"none",
-            maxAge:7*24*60*60*1000,
-            httpOnly:true
-        })
+      res.cookie("token", token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+});
   
         return res.status(201).json(user)
 
@@ -70,11 +70,11 @@ export const signIn=async (req,res) => {
 
 export const signOut = async (req, res) => {
   try {
-    res.clearCookie("token", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-    });
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+});
 
     return res.status(200).json({ message: "log out successfully" });
   } catch (error) {
