@@ -7,7 +7,10 @@ const isAuth = async (req, res, next) => {
         const token = req.cookies.token;
         console.log("Token:", token);
         console.log("Type:", typeof token);
-       
+       console.log("========== AUTH ==========");
+console.log("URL:", req.originalUrl);
+console.log("Cookies:", req.cookies);
+console.log("Headers Cookie:", req.headers.cookie);
 
         if (!token || typeof token !== "string") {
             return res.status(401).json({
